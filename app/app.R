@@ -7,7 +7,7 @@ encrypt <- function(x){
 }
 
 ui <- fluidPage(
-	h1("Same Name !?"),
+	h1("Same Baby Name !?"),
 	helpText("Test if you have the same baby name in mind as your friends. Without revealing it!"),
 	helpText("The tool will compare encrypted versions of your names and only reveal the name if an exact match is found."),
 	helpText("Ensure to include all different ways of writing and abbreviating your name(s)."),
