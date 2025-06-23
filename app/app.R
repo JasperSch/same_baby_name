@@ -7,6 +7,11 @@ encrypt <- function(x){
 }
 
 ui <- fluidPage(
+	tags$script("
+					Shiny.addCustomMessageHandler('txt', function (txt) {
+					navigator.clipboard.writeText(txt);
+					});
+					"),
 	h1("Same Baby Name !?"),
 	helpText("Test if you have the same baby name in mind as your friends. Without revealing it!"),
 	helpText("The tool will compare encrypted versions of your names and only reveal the name if an exact match is found."),
@@ -19,6 +24,7 @@ ui <- fluidPage(
 			placeholder = 'Jim, Jimmy, Jimbo, Dwight'),
 	tags$b('2. Copy your codes and send to your friends:'),
 	verbatimTextOutput('ownCodes'),
+	actionButton("copy_link", "Copy to clipboard"),
 	textAreaInput(
 			'friendCodes',
 			label = '3. Enter the codes you recieved:',
@@ -40,6 +46,9 @@ server <- function(input,output,session){
 				))
 			})
 		
+	observeEvent(input$copy_link, {
+				session$sendCustomMessage("txt", ownCodes())
+			})
 
 	output$demoImage <- renderImage( 
 			{ 
@@ -48,8 +57,10 @@ server <- function(input,output,session){
 			deleteFile = FALSE 
 	) 
 	
+	ownCodes <- reactive({paste(unique(encodedNames()$code), collapse = ' ')})
+	
 	output$ownCodes <- renderText({
-				paste(unique(encodedNames()$code), collapse = ' ')
+				ownCodes()
 			})
 	
 	output$matchMessage <- renderText({
