@@ -15,3 +15,6 @@ Only if your friends are thinking about the exact same name, you will discover i
 ## Live app:
 
 https://JasperSch.github.io/same_baby_name
+
+## Refernces 
+https://github.com/RamiKrispin/shinylive-r

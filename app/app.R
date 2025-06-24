@@ -1,9 +1,18 @@
 library(shiny)
 
+# Default encoded code to ensure same application version is used.
 TEST_STRING = 'same_name_checker'
 
+# Some salt to ensure it's not easy to use md5 reference tables
+# https://en.wikipedia.org/wiki/Salt_(cryptography)
+# If you've reached this code trying to crack your friends name, please do not pass this ethical boundary.
+SALT = paste(rep('thatswhatshesaid', 100), collapse='')
+
+
+#' Encrypt as string 
+#' @param x character
 encrypt <- function(x){
-	digest::digest(tolower(x), algo='md5')
+	digest::digest(paste0(tolower(x), SALT), algo='md5')
 }
 
 ui <- fluidPage(
@@ -28,7 +37,7 @@ ui <- fluidPage(
 	textAreaInput(
 			'friendCodes',
 			label = '3. Enter the codes you recieved:',
-			placeholder = 'a898dab114ee49ace0aa3dc9a834935a bee9393a99948667107e0f5cb545b759 f07bb844ebd0430622d0a7bed6c331ad ea47243aa25a5b4d2b4d384451e06240'),
+			placeholder = sapply(c('Meredith', 'Angela', 'Pam'), encrypt)),
 	textOutput('matchMessage')
 )
 
@@ -87,7 +96,6 @@ server <- function(input,output,session){
 			})
 }
 	
-# Create Shiny app ----
 shinyApp(ui = ui, server = server)
 
 
