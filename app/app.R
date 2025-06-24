@@ -45,7 +45,7 @@ ui <- fluidPage(
     label = "1. Fill in your own names, seperated by ', ' ",
     placeholder = "Jim, Jimmy, Jimbo, Dwight"
   ),
-  tags$b("2. Copy your codes and send to your friends:"),
+  tags$b("2. Send your codes to your friends:"),
   verbatimTextOutput("ownCodes"),
   actionButton("copy_link", "Copy to clipboard"),
   textAreaInput(
