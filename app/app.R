@@ -5,15 +5,16 @@ TEST_STRING = 'same_name_checker'
 
 # Some salt to ensure it's not easy to use md5 reference tables
 # https://en.wikipedia.org/wiki/Salt_(cryptography)
-# If you've reached this code trying to crack your friends name, please do not pass this ethical boundary.
+# If you've reached this code trying to crack your friends name, please do not cross this ethical boundary.
 SALT = paste(rep('thatswhatshesaid', 100), collapse='')
 
 
-#' Encrypt as string 
+#' Encrypt a string 
 #' @param x character
 encrypt <- function(x){
 	digest::digest(paste0(tolower(x), SALT), algo='md5')
 }
+
 
 ui <- fluidPage(
 	tags$script("
